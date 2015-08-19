@@ -6,11 +6,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ListAdapter;
+
 import android.widget.TextView;
 
 import java.util.List;
-import java.util.Locale;
+
 
 /**
  * Created by igor on 18.08.15.
@@ -31,12 +31,15 @@ public class SimpleListAdapter extends ArrayAdapter<String> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+        ViewHolder vh = new ViewHolder();
         View v = convertView;
         if (v == null){
-            v = LayoutInflater.from(getContext()).inflate(android.R.layout.simple_list_item_1 ,parent, false);
+            v = LayoutInflater.from(getContext()).inflate(R.layout.item_country ,parent, false);
+            vh.tv = (TextView)v.findViewById(android.R.id.text1);
+            v.setTag(vh);
         }
-        TextView tv = (TextView)v.findViewById(android.R.id.text1);
-        tv.setText(getItem(position));
+        vh = (ViewHolder)v.getTag();
+        vh.tv.setText(getItem(position));
         return v;
     }
 
@@ -54,4 +57,12 @@ public class SimpleListAdapter extends ArrayAdapter<String> {
     public int getCount() {
         return mItems.size();
     }
+
+    static class ViewHolder {
+        TextView tv;
+    }
 }
+
+
+
+

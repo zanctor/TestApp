@@ -1,27 +1,29 @@
 package com.mozidev.igor.testapp;
 
+
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-
-import android.view.MenuItem;
-
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Locale;
-
+import java.util.*;
 
 public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        final Intent i = new Intent(this, CountryActivity.class);
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main);
+        setContentView(R.layout.activity_main);
         ListView lw = (ListView)findViewById(R.id.listView);
-        lw.setAdapter(new SimpleListAdapter(this, android.R.layout.simple_list_item_1, countries()));
-
+        lw.setAdapter(new SimpleListAdapter(this, R.layout.item_country, getCountries()));
+        lw.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                startActivityForResult(i, 1);
+            }
+        });
     }
 
 //    @Override
@@ -46,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
 //        return super.onOptionsItemSelected(item);
 //    }
 
-    private List<String> countries(){
+    private List<String> getCountries(){
         ArrayList<String> countries = new ArrayList<>();
         String[] isoCountryCodes = Locale.getISOCountries();
         for (String countryCode : isoCountryCodes) {
