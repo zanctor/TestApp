@@ -28,4 +28,13 @@
         android:src="@android:drawable/sym_def_app_icon"
         android:layout_above="@+id/helloTextView"
         android:layout_centerHorizontal="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Return"
+        android:id="@+id/button"
+        android:layout_below="@+id/returnTextView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="38dp" />
 </RelativeLayout>
