@@ -10,42 +10,36 @@ import java.util.*;
 
 public class MainActivity extends Activity {
 
+    public static final int REQUEST_CODE_DELETE = 8001;
+    public static final int RESULT_CODE = 8002;
+    public static final String EXTRA_COUNTRY_POSITION = "extra_country_position";
+    public static final String EXTRA_COUNTRY_NAME = "extra_country_name";
+
+    ListView lw;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         final Intent i = new Intent(this, CountryActivity.class);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        ListView lw = (ListView)findViewById(R.id.listView);
+        lw = (ListView)findViewById(R.id.listView);
         lw.setAdapter(new SimpleListAdapter(this, R.layout.item_country, getCountries()));
         lw.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                startActivityForResult(i, 1);
+                i.putExtra(EXTRA_COUNTRY_POSITION, position);
+                i.putExtra(EXTRA_COUNTRY_NAME, ((SimpleListAdapter)lw.getAdapter()).getItem(position));
+                startActivityForResult(i, REQUEST_CODE_DELETE);
             }
         });
     }
 
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        // Inflate the menu; this adds items to the action bar if it is present.
-//        getMenuInflater().inflate(R.menu.menu_main, menu);
-//        return true;
-//    }
-
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        // Handle action bar item clicks here. The action bar will
-//        // automatically handle clicks on the Home/Up button, so long
-//        // as you specify a parent activity in AndroidManifest.xml.
-//        int id = item.getItemId();
-//
-//        //noinspection SimplifiableIfStatement
-//        if (id == R.id.action_settings) {
-//            return true;
-//        }
-//
-//        return super.onOptionsItemSelected(item);
-//    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == RESULT_CODE && requestCode == REQUEST_CODE_DELETE) {
+            ((SimpleListAdapter)lw.getAdapter()).removeItem(data.getExtras().getInt(EXTRA_COUNTRY_POSITION));
+        }
+    }
 
     private List<String> getCountries(){
         ArrayList<String> countries = new ArrayList<>();

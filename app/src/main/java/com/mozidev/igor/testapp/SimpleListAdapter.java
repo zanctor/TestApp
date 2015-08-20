@@ -48,6 +48,11 @@ public class SimpleListAdapter extends ArrayAdapter<String> {
         return mItems.indexOf(item);
     }
 
+    public void removeItem(int position){
+        mItems.remove(getPosition(getItem(position)));
+        notifyDataSetChanged();
+    }
+
     @Override
     public long getItemId(int position) {
         return position;
