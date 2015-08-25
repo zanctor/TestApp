@@ -1,14 +1,11 @@
 package com.mozidev.igor.testapp;
 
 import android.content.Context;
-import android.database.DataSetObserver;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-
 import android.widget.TextView;
-
 import java.util.List;
 
 
