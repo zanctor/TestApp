@@ -12,7 +12,7 @@ import com.mozidev.igor.testapp.fragments.InformationFragment;
 public class CountryActivity extends AppCompatActivity {
 
     @Override
-    protected void onCreate(Bundle savedInsanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_country);
         InformationFragment informationFragment = new InformationFragment();
